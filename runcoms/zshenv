@@ -5,7 +5,24 @@
 #   Sorin Ionescu <sorin.ionescu@gmail.com>
 #
 
+export GS_LOGIN='halfmoderate@nsb0.net'
+export GS_PASSWORD='iamthehalfmoderator'
+#export OMZ="$HOME/.oh-my-zsh"
+
+export LS_COLORS='*.do=00;35:*Makefile=00;35:*.o=00;30;1:*.pyc=00;30;1:*~=00;30;1:*.tmp=00;30;1:'
+
+export DEBEMAIL='sohum@nsb0.net'
+export DEBFULLNAME='Sohum Banerjea'
+
+export GTK_IM_MODULE=xim
+
+
 # Ensure that a non-login, non-interactive shell has a defined environment.
 if [[ "$SHLVL" -eq 1 && ! -o LOGIN && -s "${ZDOTDIR:-$HOME}/.zprofile" ]]; then
+  source "${ZDOTDIR:-$HOME}/.zprofile"
+fi
+
+# Ensure that a screen session sets all env variables too
+if [ "#{STY}" ]; then
   source "${ZDOTDIR:-$HOME}/.zprofile"
 fi

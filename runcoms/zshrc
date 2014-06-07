@@ -11,3 +11,120 @@ if [[ -s "${ZDOTDIR:-$HOME}/.zprezto/init.zsh" ]]; then
 fi
 
 # Customize to your needs...
+
+setopt extendedglob
+unsetopt beep
+unsetopt share_history
+
+alias ls='ls --color=auto'
+alias cls='clear && ls'
+alias ll='ls -l'
+alias la='ls -A'
+alias lal='ls -Al'
+alias lsmb='ls | grep -v "~" | column'
+
+alias cll='clear && ll'
+alias cla='clear && la'
+alias cllal='clear && lal'
+
+alias rcp='rsync -aPrh --append --stats'
+rmv() { rsync -aPrh --append --stats --remove-source-files $@ ; find $1 -type d -empty -prune -exec rmdir --ignore-fail-on-non-empty -vp \{\} \; }
+
+#alias next='nextaction.rb'
+#alias pj='project.sh'
+
+alias mpc-sat='mpc single; mpc idle && mpc single'
+alias mpc-rept='mpc repeat; mpc idle && mpc repeat'
+
+alias gcc='gcc -Wall -O3'
+alias ghc='ghc -O2 --make'
+#alias joinp='~/scripts/bin/join'
+alias canhaz='sudo aptitude install'
+alias cannothaz='sudo aptitude remove'
+alias donotwant='sudo aptitude purge'
+alias canfind='aptitude search'
+alias cansee='aptitude show'
+
+alias sudi='sudo'
+alias def='gnome-open'
+alias mv='mv -vi'
+alias cp='cp -vi'
+alias rm='rm -v'
+alias topten="lal -Sh | grep -v '^d' | head"
+alias emacs-server='~/.tilde/bin/emacs-server.sh'
+alias emacs='~/.tilde/bin/emacs-client-in-screen.sh'
+alias lastfm='mplayer-lastfm'
+
+alias git='hub'
+if type compdef >/dev/null; then
+   compdef hub=git
+fi
+#alias gitaddmuse='git add ~/versioned/org/*.muse'
+
+
+#alias nonmp3="find ~/Music -name '*.flac' -print0 | sed 's/flac/mp3/g' | xargs -0 ls 2>&1 | grep 'No such file or directory' | sed 's/ls: cannot access //' | sed 's/: No such file or directory//'"
+
+wpget() { pushd ~/Videos/tmp; get_flash_videos $1; popd }
+wplay() { pushd ~/Videos/tmp; get_flash_videos -p $1; popd }
+wsplay() { pushd ~/Videos/tmp; get_flash_videos -p --player='mplayer -really-quiet -af scaletempo -speed 2 %s' $1; popd }
+
+ips() { /sbin/ifconfig | sed -rn 's/.*r:([^ ]+) .*/\1/p' }
+
+todate() { cal | sed "s/^/ /;s/$/ /;s/ $(date +%e) / $(date +%e | sed 's/./#/g') /" }
+
+say() { echo $1 | aoss festival --tts }
+sayfile() { aoss festival --tts $1 }
+
+#abc='udp://@239.224.1.2:1234'
+#abc2='udp://@239.224.0.3:1234'
+#win='udp://@239.224.0.9:1234'
+#winhd='udp://@239.224.1.9:1234'
+mplayer-dump() { mplayer -quiet -dumpstream -dumpfile "$(date +'%s')" $* < /dev/null & }
+mplayer-record() {
+    PIDFILE=$(mktemp) || exit 1
+    sleep $2 && mplayer-dump $1
+    echo $! > $PIDFILE
+    sleep $3 && kill $(cat $PIDFILE)
+    rm $PIDFILE
+}
+
+music-filename() {
+    local files
+    set -A files ${(f)"$(mpc search any $1)"}
+    if [[ ${#files} -ne 1 ]] then
+        select file in $files
+            do echo $file
+        done
+    else
+        echo $files[1]
+    fi
+}
+
+plck() { 
+    for file in ${(f)"$(music-filename $1)"}
+    do echo "/home/sohum/Music/$file"
+    done
+}
+playlist() { music-filename $1 | mpc add }
+play() { 
+    plck $1 >! /tmp/otg-playlist
+    mplayer -vo null -playlist /tmp/otg-playlist
+}
+
+plays() {
+    plck $1 >! /tmp/otg-playlist
+    mplayer -noconsolecontrols -vo null -playlist /tmp/otg-playlist 2>&- 1>/dev/null &
+}
+
+lplay() { 
+    plck $1 >! /tmp/otg-playlist
+    lastfm -playlist /tmp/otg-playlist
+}
+
+#push-player () {
+#    plck $1 | xargs -I xxx cp -vi xxx /media/disk/MUSIC/
+#}
+
+frozensynapse() {
+    dchroot -d "(cd /opt/frozensynapse && ./FrozenSynapse)"
+}
