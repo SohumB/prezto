@@ -66,7 +66,7 @@ fi
 
 wpget() { pushd ~/Videos/tmp; get_flash_videos $1; popd }
 wplay() { pushd ~/Videos/tmp; get_flash_videos -p $1; popd }
-wsplay() { pushd ~/Videos/tmp; get_flash_videos -p --player='mplayer -really-quiet -af scaletempo -speed 2 %s' $1; popd }
+wsplay() { pushd ~/Videos/tmp; get_flash_videos -p --player='mpv -really-quiet -af scaletempo -speed 2 %s' $1; popd }
 
 ips() { /sbin/ifconfig | sed -rn 's/.*r:([^ ]+) .*/\1/p' }
 
@@ -79,7 +79,7 @@ sayfile() { aoss festival --tts $1 }
 #abc2='udp://@239.224.0.3:1234'
 #win='udp://@239.224.0.9:1234'
 #winhd='udp://@239.224.1.9:1234'
-mplayer-dump() { mplayer -quiet -dumpstream -dumpfile "$(date +'%s')" $* < /dev/null & }
+mplayer-dump() { mpv -quiet -dumpstream -dumpfile "$(date +'%s')" $* < /dev/null & }
 mplayer-record() {
     PIDFILE=$(mktemp) || exit 1
     sleep $2 && mplayer-dump $1
@@ -108,12 +108,12 @@ plck() {
 playlist() { music-filename $1 | mpc add }
 play() { 
     plck $1 >! /tmp/otg-playlist
-    mplayer -vo null -playlist /tmp/otg-playlist
+    mpv -playlist /tmp/otg-playlist
 }
 
 plays() {
     plck $1 >! /tmp/otg-playlist
-    mplayer -noconsolecontrols -vo null -playlist /tmp/otg-playlist 2>&- 1>/dev/null &
+    mpv -noconsolecontrols -vo null -playlist /tmp/otg-playlist 2>&- 1>/dev/null &
 }
 
 lplay() { 
