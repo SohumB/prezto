@@ -16,6 +16,8 @@ setopt extendedglob
 unsetopt beep
 unsetopt share_history
 
+hash -d franq=~/versioned/franq/
+
 alias ls='ls --color=auto'
 alias cls='clear && ls'
 alias ll='ls -l'
