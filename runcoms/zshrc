@@ -74,8 +74,8 @@ ips() { /sbin/ifconfig | sed -rn 's/.*r:([^ ]+) .*/\1/p' }
 
 todate() { cal | sed "s/^/ /;s/$/ /;s/ $(date +%e) / $(date +%e | sed 's/./#/g') /" }
 
-say() { echo $1 | aoss festival --tts }
-sayfile() { aoss festival --tts $1 }
+say() { echo $1 | festival --tts }
+sayfile() { festival --tts $1 }
 
 #abc='udp://@239.224.1.2:1234'
 #abc2='udp://@239.224.0.3:1234'
