@@ -45,15 +45,17 @@ typeset -gU cdpath fpath mailpath path
 
 # Set the list of directories that Zsh searches for programs.
 path=(
+	/usr/local/sbin
+	/usr/sbin
+	/sbin
 	./.cabal-sandbox/bin
 	./node_modules/.bin
-	~/.cabal/bin
-  /usr/local/{bin,sbin}
-	/usr/{bin,sbin}
-	/{bin,sbin}
 	$HOME/.tilde/bin
+	$HOME/.cabal/bin
 	$HOME/.npm/bin
-	$HOME/Documents/pebble-dev/PebbleSDK-2.0.0/bin
+        /usr/local/bin
+        /usr/bin
+        /bin
   $path
 )
 
