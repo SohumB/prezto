@@ -63,6 +63,7 @@ if type compdef >/dev/null; then
 fi
 #alias gitaddmuse='git add ~/versioned/org/*.muse'
 
+export NODE_PATH=$NODE_PATH:/home/sohum/.npm/lib/node_modules
 
 #alias nonmp3="find ~/Music -name '*.flac' -print0 | sed 's/flac/mp3/g' | xargs -0 ls 2>&1 | grep 'No such file or directory' | sed 's/ls: cannot access //' | sed 's/: No such file or directory//'"
 
