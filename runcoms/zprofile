@@ -17,9 +17,9 @@ fi
 # Editors
 #
 
-export EDITOR='vim'
-export VISUAL='vim'
-export PAGER='less'
+export EDITOR='emacsclient -s /tmp/emacs1000/server -t'
+export VISUAL='emacsclient -s /tmp/emacs1000/server -t'
+export PAGER='most'
 
 #
 # Language
