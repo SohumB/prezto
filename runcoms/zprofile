@@ -48,8 +48,8 @@ path=(
 	/usr/local/sbin
 	/usr/sbin
 	/sbin
-	./.cabal-sandbox/bin
-	./node_modules/.bin
+	#./.cabal-sandbox/bin
+	#./node_modules/.bin
 	$HOME/.tilde/bin
 	$HOME/.cabal/bin
 	$HOME/.npm/bin
